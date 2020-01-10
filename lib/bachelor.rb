@@ -22,13 +22,15 @@ end
 end
 
 def count_contestants_by_hometown(data, hometown)
-  data.each { |key, value|
-value.map { |people|
+  name = []
+  data.map { |key, value|
+   value.select { |people| 
  if people["hometown"] == hometown
- return people["name"]
+ name << people["name"] 
 end
 }
 }
+name.count
 end
 def get_occupation(data, hometown)
   data.each{ |key,value|
@@ -41,11 +43,20 @@ def get_occupation(data, hometown)
 end
 
 def get_average_age_for_season(data, season)
- 
-  data.map{ |key, value|
-value.each{ |people|
-
- people["age"]
+  ages = []
+data[season].map{ |people|
+ages << people["age"]
 }
+integer_ages = ages.map{ |age|
+age.to_i
 }
+total_of_ages = integer_ages.reduce(:+)
+(total_of_ages.to_f / data[season].length).round
 end
+#def fierceness_sum(beyonceHash)
+  #beyonceHash[:hits].reduce(0){ |sum, song|
+  #sum += song[:fierceness]
+ # }
+  #end
+  #def average_fierceness_value(beyonceHash)
+   # (fierceness_sum(beyonceHash).to_f / hash[:hints].length).round
